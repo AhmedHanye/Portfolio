@@ -53,9 +53,41 @@ export default function RootLayout({
           sizes="16x16"
           href="/logo/favicon-16x16.png"
         />
-        <link rel="manifest" href="/logo/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <link
+          rel="manifest"
+          href="site.webmanifest"
+          crossOrigin="use-credentials"
+        />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="Ahmed Hanye's Portfolio" />
+        <meta
+          property="og:description"
+          content="Explore the portfolio of Ahmed Hanye, a full-stack web developer."
+        />
+        <meta
+          property="og:image"
+          content="https://ahmedhanye.vercel.app/logo/favicon-32x32.png"
+        />
+        <meta property="og:url" content="https://ahmedhanye.vercel.app" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ahmed Hanye's Portfolio" />
+        <meta
+          name="twitter:description"
+          content="Explore the portfolio of Ahmed Hanye, a full-stack web developer."
+        />
+        <meta
+          name="twitter:image"
+          content="https://ahmedhanye.vercel.app/logo/favicon-32x32.png"
+        />
+
         <script src="/scripts/Theme.min.js"></script>
         <noscript>
           {/* if no js no need to solve fouc */}

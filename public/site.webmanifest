@@ -1,6 +1,8 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "Ahmed Hanye's Portfolio",
+  "short_name": "Portfolio",
+  "description": "Explore the portfolio of Ahmed Hanye, a full-stack web developer.",
+  "start_url": "/",
   "icons": [
     {
       "src": "/logo/android-chrome-192x192.png",
