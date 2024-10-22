@@ -65,6 +65,7 @@ export default function RootLayout({
 
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Ahmed Hanye's Portfolio" />
+        <meta property="og:site_name" content="Ahmed Hanye" />
         <meta
           property="og:description"
           content="Explore the portfolio of Ahmed Hanye, a full-stack web developer."
