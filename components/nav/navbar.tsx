@@ -1,28 +1,23 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
 import ThemeToggle from "./themeToggle";
-
-gsap.registerPlugin(useGSAP);
+import NavLinks from "./navLinks";
+import UseGsap2 from "../../utils/useGsap2";
+import gsap from "gsap";
 
 const Navbar = () => {
-  // * Get the current page path
-  const currentPage = usePathname();
-
   // * Animate the navbar
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    tl.to("#navbar", {
-      opacity: 1,
-    });
-    if (window.innerWidth > 768) {
+  UseGsap2(
+    () => {
+      const tl = gsap.timeline();
+      tl.to("#navbar", {
+        opacity: 1,
+        duration: 0,
+      });
       tl.from("#theme-toggle", {
         x: -60,
         duration: 0.5,
         ease: "power4.out",
-        delay: 0.1,
+        delay: 0.2,
       });
       tl.fromTo(
         "#links",
@@ -40,49 +35,24 @@ const Navbar = () => {
         duration: 0.25,
         stagger: 0.08,
       });
+    },
+    [], // ! just run for the first render
+    () => {
+      // * Reset to opacity 1 for mobile
+      gsap.to("#navbar", {
+        opacity: 1,
+        duration: 0,
+      });
     }
-  }, []);
+  );
 
-  const links: string[][] = [
-    ["Home", "/"],
-    ["Projects", "/projects"],
-    ["About", "/about"],
-    ["Contact", "/contact"],
-  ];
   return (
     <nav
-      className="sticky flex top-5 my-5 gap-5 max-md:gap-3 h-10 max-md:h-8 w-fit z-[999999] mx-auto fouc_hide"
+      className="fixed left-0 right-0 flex md:top-10 top-5 gap-5 max-md:gap-3 h-10 max-md:h-8 w-fit mx-auto z-[999999] fouc_hide bg-transparent"
       id="navbar"
       aria-label="Main Navigation"
     >
-      <div
-        id="links"
-        className="bg-foreground h-full px-4 z-[9999] dark:bg-white flex text-white dark:text-black font-bold rounded-3xl max-md:text-xs"
-      >
-        {links.map(([name, href]) => (
-          <Link
-            key={name}
-            href={href}
-            className="transition-colors1 group relative text-center content-center h-full w-24 max-md:w-16"
-            prefetch={false}
-          >
-            <span
-              className={
-                currentPage === href
-                  ? "text-gray-300 dark:text-gray-600 block animate-bounce"
-                  : ""
-              }
-            >
-              {name}
-            </span>
-            <span
-              className={`w-3/4 h-[0.17rem] rounded-full dark:group-hover:bg-black absolute bottom-0 left-1/2 -translate-x-1/2 ${
-                currentPage === href ? "bg-white dark:bg-black" : ""
-              }`}
-            ></span>
-          </Link>
-        ))}
-      </div>
+      <NavLinks />
       <ThemeToggle />
     </nav>
   );

@@ -1,8 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-
 import {
   Tooltip,
   TooltipContent,
@@ -11,34 +6,29 @@ import {
 } from "@/components/ui/tooltip";
 
 import dynamic from "next/dynamic";
-const Chat = dynamic(() => import("@/components/contact/chat"), {
-  ssr: false,
-});
+const Chat = dynamic(() => import("@/components/contact/chat"));
 
 import { Metadata } from "next";
+import { Mail, Phone } from "lucide-react";
+import { LinkedInLogoIcon } from "@radix-ui/react-icons";
 export const metadata: Metadata = {
   title: "Ahmed Hanye: Contact",
   description: "Contact me for any inquiries or collaborations",
 };
 
 export default function Contact() {
-  const icons: Record<
-    string,
-    typeof faLinkedin | typeof faGithub | typeof faPhone
-  > = {
-    gmail: faEnvelope,
-    linkedin: faLinkedin,
-    phone: faPhone,
-  };
-  const contacts: Record<string, string> = {
-    gmail: "mailto:ahmedhanyehossny@gmail.com",
-    linkedin: "https://linkedin.com/in/ahmed-hanye-a66096253",
-    phone: "tel:+123456789",
+  const contacts: Record<string, [string, JSX.Element]> = {
+    Gmail: ["mailto:ahmedhanyehossny@gmail.com", <Mail key="mail" className="size-full"/>],
+    Linkedin: [
+      "https://linkedin.com/in/ahmed-hanye-a66096253",
+      <LinkedInLogoIcon key="linkedin"className="size-full"/>,
+    ],
+    Phone: ["tel:+123456789", <Phone key="phone" className="size-full"/>],
   };
   return (
     <section
       id="contact"
-      className="px-10 max-md:px-5 pb-10 center gap-5 max-lg:flex-col-reverse min-h-full"
+      className="px-10 max-md:px-5 pb-10 center gap-5 max-md:gap-0 max-lg:flex-col-reverse min-h-full pt-16"
     >
       <div id="chat-content" className="">
         <h1 className="md:text-6xl text-4xl py-2 font-extrabold bg-gradient-to-r from-orange-800 via-orange-600 to-orange-400 text-transparent inline-block bg-clip-text">
@@ -49,21 +39,21 @@ export default function Contact() {
           free to reach out to me for any inquiries, questions, or just to say
           hi. I&apos;ll do my best to get back to you as soon as possible.
         </p>
-        <div className="center mt-10 space-x-5">
-          {Object.keys(icons).map((key) => (
+        <div className="flex items-center mt-8 space-x-4">
+          {Object.keys(contacts).map((key) => (
             <TooltipProvider key={key}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
-                    href={contacts[key]}
-                    className="text-gray-700 hover:text-gray-900 dark:hover:text-white dark:text-gray-400 cursor-pointer"
+                    href={contacts[key][0]}
+                    className="text-gray-700 hover:text-gray-900 dark:hover:text-white dark:text-gray-400 cursor-pointer md:size-14 size-10"
                     target="_blank"
                     aria-label={key}
                   >
-                    <FontAwesomeIcon className="size-10" icon={icons[key]} />
+                    {contacts[key][1]}
                   </a>
                 </TooltipTrigger>
-                <TooltipContent className="me-10">
+                <TooltipContent>
                   <p>{key}</p>
                 </TooltipContent>
               </Tooltip>

@@ -1,28 +1,47 @@
 "use client";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useTransitionContext } from "@/utils/transitionContext";
+import UseGsap2 from "@/utils/useGsap2";
+import gsap from "gsap";
+import { useRef } from "react";
 
-gsap.registerPlugin(useGSAP);
-
+gsap.registerPlugin();
 const Template = ({ children }: { children: child }) => {
-  // * Animation for page transition
-  useGSAP(() => {
-    if (window.innerWidth > 768) {
-      gsap.fromTo(
-        "#transition",
-        { opacity: 0, x: -50 },
-        { x: 0, opacity: 1, duration: 0.4, delay: 0.1 }
-      );
-    } else {
-      gsap.to("#transition", { opacity: 1, duration: 0 });
+  const transitionRef = useRef(null);
+  const { dir } = useTransitionContext();
+  UseGsap2(
+    () => {
+      // * Transition first render
+      if (dir === null) {
+        gsap.fromTo(
+          transitionRef.current,
+          { opacity: 0, scale: 0.87, y: 50 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.2 }
+        );
+      } else {
+        // * Transition after first render
+        gsap.fromTo(
+          transitionRef.current,
+          {
+            opacity: 0,
+            // * left or right based on the direction
+            x: dir ? 40 : -40,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.15,
+          }
+        );
+      }
+    },
+    [], // ! Only run on mount
+    () => {
+      // * Reset the opacity to 1 if on phones
+      gsap.to(transitionRef.current, { opacity: 1, duration: 0 });
     }
-  }, []);
-
+  );
   return (
-    <main
-      id="transition"
-      className="h-[calc(100vh-5rem)] max-md:h-[calc(100vh-4.5rem)] fouc_hide"
-    >
+    <main ref={transitionRef} className="h-screen fouc_hide">
       {children}
     </main>
   );

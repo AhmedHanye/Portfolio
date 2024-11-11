@@ -1,4 +1,8 @@
 /* eslint-disable @next/next/no-sync-scripts */
+import Navbar from "@/components/nav/navbar";
+import { TransitionProvider } from "@/utils/transitionContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -98,7 +102,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors1`}
       >
-        {children}
+        <TransitionProvider>
+          <Navbar />
+          {children}
+        </TransitionProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

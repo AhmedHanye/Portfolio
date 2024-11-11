@@ -1,13 +1,16 @@
 "use client";
+import { HardDriveDownload } from "lucide-react";
 import { Button } from "../ui/button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 const CVDownload = () => {
   const downloadCV = () => {
     document.body.style.cssText = `
-    --background: ${getComputedStyle(document.documentElement).getPropertyValue("--background")};
-    --foreground: ${getComputedStyle(document.documentElement).getPropertyValue("--foreground")};
+    --background: ${getComputedStyle(document.documentElement).getPropertyValue(
+      "--background"
+    )};
+    --foreground: ${getComputedStyle(document.documentElement).getPropertyValue(
+      "--foreground"
+    )};
     `;
     window.print();
     // Reset the body style
@@ -23,7 +26,8 @@ const CVDownload = () => {
       title="Download CV"
     >
       <span className="max-md:hidden">Download CV</span>
-      <FontAwesomeIcon icon={faDownload} />
+      {/* <FontAwesomeIcon icon={faDownload} /> */}
+      <HardDriveDownload style={{ width: '1.4rem', height: '1.4rem' }} />
     </Button>
   );
 };

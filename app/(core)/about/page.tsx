@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import CVData from "@/components/about/cvData";
-const CVDownload = dynamic(() => import("@/components/about/cvDownload"), {
-  ssr: false,
-});
+const CVDownload = dynamic(() => import("@/components/about/cvDownload"));
 
 export const metadata: Metadata = {
   title: "Ahmed Hanye: About",
@@ -13,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <section id="about" className="center flex-col px-5">
+    <section id="about" className="center flex-col px-5 pt-20">
       <div id="cv" className="w-full md:px-8 lg:px-16 pt-4">
         <div
           id="cv-header"

@@ -1,5 +1,8 @@
 import axios from "axios";
 
+// TODO: edit caching strategy
+// TODO: make this follow best practices
+
 // * Get wallpaper for each repository
 const getWallpaper = (url: string): Promise<string | null> => {
   return new Promise(async (resolve, reject) => {

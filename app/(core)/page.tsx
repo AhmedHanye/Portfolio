@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="px-10 max-md:px-5 pb-10 center gap-5 max-lg:flex-col-reverse min-h-full"
+      className="px-10 max-md:px-5 pb-10 center gap-5 max-lg:flex-col-reverse min-h-full pt-20"
     >
       <div id="content">
         <p className="md:text-xl font-semibold">Hi, I&apos;m</p>

@@ -18,6 +18,8 @@
 
 /* Scrollbar:fix layout shift */
 html {
+  overflow-y: scroll;
+  overflow-x: hidden;
   scrollbar-gutter: stable;
 }
 html body[data-scroll-locked] {
@@ -25,6 +27,7 @@ html body[data-scroll-locked] {
   margin-right: 0 !important;
 }
 
+/* Custom properties */
 :root {
   --background: #ffffff;
   --foreground: #212121;

@@ -15,7 +15,7 @@ const DesktopModel = memo(
     setOrbit: React.Dispatch<React.SetStateAction<boolean>>;
     content: React.ReactNode;
   }) => {
-    const { scene, nodes } = useGLTF("/models/Desktop.glb");
+    const { scene, nodes } = useGLTF("/models/Desktop.min.glb");
     const { camera } = useThree();
     const screenRef = useRef<THREE.Mesh>(null);
     const monitor = nodes["Ultrawide_Monitor"];
@@ -28,8 +28,15 @@ const DesktopModel = memo(
     }, [monitor, nodes]);
 
     // * animate Github icon
+    const githubButton = useRef<THREE.Mesh>(null);
     useFrame(() => {
       Github.position.y = Math.sin(performance.now() / 1000) * 0.05 + 0.2;
+      if (githubButton.current)
+        githubButton.current?.position.set(
+          Github.position.x,
+          Github.position.y,
+          Github.position.z
+        );
     });
 
     // * responsive camera
@@ -74,8 +81,15 @@ const DesktopModel = memo(
             </div>
           </Html>
         </mesh>
-        <primitive
-          object={Github}
+        <mesh
+          geometry={Github.geometry}
+          position={[
+            Github.position.x,
+            Github.position.y - 0.1,
+            Github.position.z,
+          ]}
+          ref={githubButton}
+          scale={[0.1, 0.1, 0.1]}
           onClick={(e: Event) => {
             e.stopPropagation();
             window
@@ -90,7 +104,10 @@ const DesktopModel = memo(
             e.stopPropagation();
             document.body.style.cursor = "auto";
           }}
-        />
+        >
+          <sphereGeometry args={[1.3, 32, 32]} />
+          <meshBasicMaterial transparent opacity={0} />
+        </mesh>
       </primitive>
     );
   }
@@ -105,19 +122,20 @@ const Desktop = memo(({ content }: { content: React.ReactNode }) => {
         fov: window.innerWidth < 768 ? 100 : window.innerWidth < 1024 ? 60 : 45,
         position: [0, 15, 80],
       }}
-      dpr={[1, 2]}
-      gl={{ antialias: true }}
+      dpr={[1, window.innerWidth < 768 ? 1 : 2]}
+      gl={{ antialias: false }}
+      shadows={false}
     >
       <Environment preset="warehouse" />
       <OrbitControls
         enableDamping={true}
-        dampingFactor={0.05}
-        minDistance={60}
+        minDistance={90}
         maxDistance={150}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 3}
         maxAzimuthAngle={Math.PI / 4}
         minAzimuthAngle={-Math.PI / 4}
+        dampingFactor={0.05}
         rotateSpeed={0.5}
         zoomSpeed={0.6}
         enabled={orbit}

@@ -15,8 +15,17 @@ const Desktop = dynamic(() => import("@/components/projects/desktop"), {
         height: "100%",
         backgroundColor: "transparent",
       }}
+      barStyles={{
+        backgroundColor: "var(--foreground)",
+      }}
+      dataStyles={{
+        color: "var(--foreground)",
+        fontWeight: "bolder"
+      }}
       innerStyles={{
-        scale: 2.2,
+        outline: "1px solid var(--foreground)",
+        backgroundColor: "var(--background)",
+        scale: 2.25,
       }}
     />
   ),

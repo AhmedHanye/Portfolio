@@ -39,8 +39,8 @@ export default function ThemeToggle() {
           className="rounded-full my-auto z-[99999] size-10 max-md:size-8 relative"
           size="icon"
         >
-          <SunIcon className="size-[70%] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <MoonIcon className="absolute size-[70%] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <SunIcon className="rotate-0 scale-[1.56] max-md:scale-125 transition-all dark:-rotate-90 dark:scale-0" />
+          <MoonIcon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-[1.56] max-md:dark:scale-125" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
