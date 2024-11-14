@@ -30,9 +30,10 @@ const NavLinks = () => {
 
   // * Handle routing
   const handleRouting = (href: string) => {
-    if (!links[currentPage] || currentPage === href) return; // ! if the current page is the same as the clicked link
-    if (window.innerWidth <= 768) {
-      router.push(href); // ! if the link is not in the links object
+    if (currentPage === href) return; // ! if the current page is the same as the clicked link
+    if (window.innerWidth <= 768 || !links[currentPage]) {
+      // ! if the link is not in the links object or the screen is mobile
+      router.push(href);
     } else {
       const dir = links[href][1] > links[currentPage][1];
       // * Set the transition direction for the next page
