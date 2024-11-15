@@ -7,28 +7,23 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  /*
-   * set themeConfig:
-   * - if window (if not in the browser) is undefined, set themeConfig to "system"
-   * - else, set themeConfig to the value of localStorage.getItem("theme")
-   * - if localStorage.getItem("theme") is null, set themeConfig to "system"
-   */
-  const [themeConfig, setThemeConfig] = useState<theme>(() => {
-    return (
-      (typeof window === "undefined" && "system") ||
-      (localStorage.getItem("theme") as theme) ||
-      "system"
-    );
-  });
-
-  // * set theme to the choosen theme in localStorage and themeConfig state
-  const setTheme = (theme: theme) => {
-    localStorage.setItem("theme", theme);
-    setThemeConfig(theme);
+  const [themeConfig, setTheme] = useState<theme>(undefined);
+  const handleThemeChange = (event: StorageEvent) => {
+    if (event.key === "theme") {
+      setTheme(event.newValue as theme);
+    }
   };
+  useEffect(() => {
+    setTheme((localStorage.getItem("theme") as theme) || "system");
+    window.addEventListener("storage", handleThemeChange);
+
+    return () => {
+      window.removeEventListener("storage", handleThemeChange);
+    };
+  }, []);
 
   return (
     <DropdownMenu>
@@ -51,8 +46,16 @@ export default function ThemeToggle() {
         {["light", "dark", "system"].map((themeOption) => (
           <DropdownMenuItem
             key={themeOption}
-            className={`cursor-pointer ${themeOption === themeConfig ? "bg-neutral-100 dark:bg-neutral-500" : ""}`}
-            onSelect={() => setTheme(themeOption as theme)}
+            className={`cursor-pointer ${
+              themeOption === themeConfig
+                ? "bg-neutral-100 dark:bg-neutral-500"
+                : ""
+            }`}
+            onSelect={() => {
+              // @ts-expect-error: setThemeInLocalStorage is defined in an external script
+              setThemeInLocalStorage(themeOption);
+              setTheme(themeOption as theme);
+            }}
           >
             {themeOption}
           </DropdownMenuItem>

@@ -1,5 +1,5 @@
 type child = React.ReactNode;
-type theme = "light" | "dark" | "system";
+type theme = "light" | "dark" | "system" | undefined;
 type CVDataType = {
   [key: string]: string | string[] | Record<string, string>;
 };
