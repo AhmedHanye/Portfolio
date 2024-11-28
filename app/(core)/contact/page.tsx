@@ -5,8 +5,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import dynamic from "next/dynamic";
-const Chat = dynamic(() => import("@/components/contact/chat"));
+import Chat from "@/components/contact/chat";
 
 import { Metadata } from "next";
 import { Mail, Phone } from "lucide-react";
@@ -18,12 +17,15 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   const contacts: Record<string, [string, JSX.Element]> = {
-    Gmail: ["mailto:ahmedhanyehossny@gmail.com", <Mail key="mail" className="size-full"/>],
+    Gmail: [
+      "mailto:ahmedhanyehossny@gmail.com",
+      <Mail key="mail" className="size-full" />,
+    ],
     Linkedin: [
       "https://linkedin.com/in/ahmed-hanye-a66096253",
-      <LinkedInLogoIcon key="linkedin"className="size-full"/>,
+      <LinkedInLogoIcon key="linkedin" className="size-full" />,
     ],
-    Phone: ["tel:+123456789", <Phone key="phone" className="size-full"/>],
+    Phone: ["tel:+123456789", <Phone key="phone" className="size-full" />],
   };
   return (
     <section

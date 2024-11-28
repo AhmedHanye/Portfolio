@@ -1,9 +1,20 @@
 "use client";
 import Loading from "@/app/(core)/loading";
-import { Loader } from "@react-three/drei";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import Repositories from "./repositories";
+
+const Loader = dynamic(
+  () => import("@react-three/drei").then((mod) => mod.Loader),
+  {
+    ssr: false,
+  }
+);
+const Repositories = dynamic(
+  () => import("@/components/projects/repositories"),
+  {
+    ssr: false,
+  }
+);
 
 const Desktop = dynamic(() => import("@/components/projects/desktop"), {
   ssr: false,
@@ -20,7 +31,7 @@ const Desktop = dynamic(() => import("@/components/projects/desktop"), {
       }}
       dataStyles={{
         color: "var(--foreground)",
-        fontWeight: "bolder"
+        fontWeight: "bolder",
       }}
       innerStyles={{
         outline: "1px solid var(--foreground)",

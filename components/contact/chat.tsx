@@ -1,19 +1,9 @@
 "use client";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import { memo } from "react";
+import dynamic from "next/dynamic";
+const ChatLottie = dynamic(() => import("@/components/contact/chatLottie"));
 
 const Chat = () => {
-  return (
-    <div id="chat-3d" className="size-[27rem] max-md:size-80">
-      <DotLottieReact
-        src="/assets/chat.lottie"
-        className="size-full"
-        loop
-        autoplay
-        aria-label="Chat animation displaying a 3D chat icon"
-      />
-    </div>
-  );
+  return <ChatLottie />;
 };
 
-export default memo(Chat);
+export default Chat;
